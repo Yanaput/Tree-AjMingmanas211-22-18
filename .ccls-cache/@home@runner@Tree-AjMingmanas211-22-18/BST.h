@@ -17,6 +17,15 @@ public:
   TreeNode* get_root(){return rootPtr;}
 };
 
+BST::BST() {
+  rootPtr = nullptr;
+}
+
+BST::~BST() { 
+  cout << "Kill BST" << endl; 
+    kill(rootPtr);
+}
+
 void BST::insert_node(int value) {
   int inserted = 0;
   TreeNodePtr new_node, t;
@@ -28,7 +37,7 @@ void BST::insert_node(int value) {
     else{
       t = rootPtr;
       while(!inserted){
-        if(value<=t->get_value()){ 
+        if(value <= t->get_value()){ 
           if(t->move_left())
             t=t->move_left();
           else{
@@ -48,14 +57,6 @@ void BST::insert_node(int value) {
     }
     ++size;
   }
-}
-BST::BST() {
-  rootPtr = nullptr;
-}
-
-BST::~BST() { 
-  cout << "Kill BST" << endl; 
-    kill(rootPtr);
 }
 
 void BST::printTree(TreeNodePtr treePtr,int l) {
@@ -78,7 +79,7 @@ void BST::printTree(TreeNodePtr treePtr,int l) {
   }
 }
 
-void BST::inOrder(TreeNodePtr treePtr) {
+void BST::inOrder(TreeNode*r treePtr) {
   if (treePtr) {
     inOrder(treePtr->move_left()); // Recursion to the left
     cout << treePtr->get_value()<<" "; 
@@ -86,16 +87,16 @@ void BST::inOrder(TreeNodePtr treePtr) {
   }
 }
 
-void BST::preOrder(TreeNodePtr treePtr) {
+void BST::preOrder(TreeNode* treePtr) {
   if(treePtr){
     TreeNodePtr treePtr=rootPtr;
     cout << treePtr->get_value()<<" ";
-    postOrder(treePtr->move_left());
-    postOrder(treePtr->move_right());
+    preOrder(treePtr->move_left());
+    preOrder(treePtr->move_right());
   }
 } 
 
-void BST::postOrder(TreeNodePtr treePtr) {
+void BST::postOrder(TreeNode* treePtr) {
   if (treePtr) {
     postOrder(treePtr->move_left());
     postOrder(treePtr->move_right());
@@ -104,7 +105,7 @@ void BST::postOrder(TreeNodePtr treePtr) {
   }   
 } 
 
-void BST::kill(TreeNodePtr treePtr) {
+void BST::kill(TreeNode* treePtr) {
   if (treePtr) {
     kill(treePtr->move_left());
     kill(treePtr->move_right());
